@@ -4,17 +4,16 @@ a few ideas without any relationship with the Mars
 ### Format of the csv files:
 
 
-
 1. matches.csv
 
 
 | MatchID | OpponentID | Outcome | OwnScore | OpponentScore | Side |CoachID|
-| :-: | :-: | :-: | :-: | :-: | :-: |
+| :------: | :------: | :------: | :------: | :------: | :------: | :------: |
 |1|Opponent1|win|1|0|home|Coach1|
 
 
 <details>
-<summary>Data Descriptions</summary>
+<summary>Data Descriptions for matches.csv</summary>
 <pre><code>
 MatchID
 A unqiue identifier for each match played during the season, and reflects the order of the match in the season.
@@ -50,7 +49,7 @@ A unqiue identifier for the Huskies coach for this match.
 
 
 <details>
-<summary>Data Descriptions</summary>
+<summary>Data Descriptions for passingevents.csv</summary>
 <pre><code>
 MatchID
 A unqiue identifier for each match played during the season (see matches.csv).
@@ -86,6 +85,7 @@ EventDestination_y
 The y-coordinate on the field at the pass destination.  (see EventOrigin_y)
 
 </code></pre>
+</details>
 
 3. fullevents.csv
 
@@ -96,7 +96,7 @@ The y-coordinate on the field at the pass destination.  (see EventOrigin_y)
 
 
 <details>
-<summary>Data Descriptions</summary>
+<summary>Data Descriptions for fullevents.csv</summary>
 <pre><code>
 
 MatchID
