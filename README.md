@@ -22,7 +22,7 @@ OpponentID
 A unqiue identifier for the opposing team played in the match.  Note that the Huskies play each opposing team twice during the season.
 
 Outcome
-Result of the match, eiter `win', `loss', or `tie'.
+Result of the match, eiter，win, loss, or tie.
 
 OwnScore
 Number of goals scored by the Huskies.
@@ -31,7 +31,7 @@ OpponentScore
 Number of goals scored by the Opposing Team.
 
 Side
-Whether the Huskies were the `home' team or `away' team.
+Whether the Huskies were the home team or away' team.
 
 CoachID
 A unqiue identifier for the Huskies coach for this match.
@@ -139,4 +139,5 @@ The y-coordinate on the field at the event destination.  (see EventOrigin_y)
 </code></pre>
 </details>
 
->NOTE: For 'Substitution' events, the Outgoing player is the OriginPlayerID, while in the incoming player is the DestinationPlayerID
+### NOTE: 
+>For 'Substitution' events, the Outgoing player is the OriginPlayerID, while in the incoming player is the DestinationPlayerID
