@@ -11,3 +11,6 @@ from cv2 import VideoWriter,VideoWriter_fourcc,imread,resize
 from moviepy.editor import *
 from moviepy.audio.fx import all
 from PIL import Image
+
+import pitch
+import math

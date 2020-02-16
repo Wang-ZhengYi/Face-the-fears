@@ -2,8 +2,32 @@
 
 from def_import import *
 
-def createPitch():
-    
+
+def colorset(tex):
+    if tex == "Simple pass":
+        return 'blue'
+    if tex ==  'Head pass':
+        return 'black'
+    if tex == 'High pass':
+        return 'yellow'
+    if tex == 'Launch':
+        return 'green'
+    if tex == 'Cross':
+        return 'red'
+    if tex == 'Smart pass':
+        return 'oringe'
+    if tex == 'Hand pass':
+        return 'pink'
+    else:
+        return 'blue'
+
+
+
+def createPitch(O_P,D_P,tex1,tex2,tex3):
+    scaler = np.mat([[1.3,0.],
+        [0.,0.9]])
+    O_P = np.dot(O_P,scaler)
+    D_P = np.dot(D_P,scaler)
     #Create figure
     fig=plt.figure()
     ax=fig.add_subplot(1,1,1)
@@ -58,12 +82,52 @@ def createPitch():
     ax.add_patch(leftArc)
     ax.add_patch(rightArc)
     
+    c1 = colorset(tex1)
+    c2 = colorset(tex2)
+    c3 = colorset(tex3)
+
+    # for i in range(O_P.shape[1]):
+    i = 2
+    ax.arrow(O_P[i:0], O_P[i:1], D_P[i:0]-O_P[i,0], D_P[i:1]-O_P[i,1],
+                 length_includes_head=True,
+                 head_width=0.25, head_length=0.5, 
+                 fc='r', ec='b',
+                 color=c1
+                 )
+    
+    plt.scatter(O_P[:,0].tolist(),O_P[:,1].tolist(),s=50,color=c2)
+    plt.scatter(D_P[:,0].tolist(),D_P[:,1].tolist(),s=50,color=c3)
+
+
+
     #Tidy Axes
     plt.axis('on')
     plt.grid("on")
     
 
 
+
+
+
+    
+
+
 if __name__ == '__main__':
-    createPitch()
+    file_name = './csvdata/passingevents0.dat'
+    data = np.loadtxt(file_name)
+    lenth1 = 4
+    A = np.zeros(shape=(lenth1,2),dtype='float')
+    B = np.zeros(shape=(lenth1,2),dtype='float')
+
+    A[:,0] = data[0:lenth1,1]
+    A[:,1] = data[0:lenth1,2]
+    B[:,0] = data[0:lenth1,3]
+    B[:,1] = data[0:lenth1,4]
+    print(A)
+    print(B)
+    t1 = ''
+    t2 = ''
+    t3 = ''
+    createPitch(A,B,t1,t2,t3)
+    plt.savefig('pass.png',dpi=600, transparent = False, bbox_inches = 'tight', pad_inches = 0.25)
     plt.show()
