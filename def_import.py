@@ -5,6 +5,7 @@ import os
 import csv
 import pandas as pd
 from matplotlib.patches import Arc
+from matplotlib import font_manager as fm, rcParams
 import sys
 import cv2
 from cv2 import VideoWriter,VideoWriter_fourcc,imread,resize

@@ -2,36 +2,68 @@
 
 from def_import import *
 
+fpath = os.path.join(rcParams["datapath"], "fonts/ttf/cmr10.ttf")
+prop = fm.FontProperties(fname=fpath)
 
-def colorset(tex):
+def border(x,N):
+    less = (x<=N)
+    return x-less*(x-N)
+
+def colorset1(tex):
     if tex == "Simple pass":
         return 'blue'
     if tex ==  'Head pass':
         return 'black'
     if tex == 'High pass':
-        return 'yellow'
+        return 'orange'
     if tex == 'Launch':
         return 'green'
     if tex == 'Cross':
         return 'red'
     if tex == 'Smart pass':
-        return 'oringe'
+        return 'olive'
     if tex == 'Hand pass':
         return 'pink'
     else:
         return 'blue'
 
+def colorset2(tex):
+    if tex == "Huskies":
+        return 'red'
+    else:
+        return 'cyan'
 
 
-def createPitch(O_P,D_P,tex1,tex2,tex3):
-    scaler = np.mat([[1.3,0.],
-        [0.,0.9]])
-    O_P = np.dot(O_P,scaler)
-    D_P = np.dot(D_P,scaler)
+def pass_stats(file_name):
+    dataSet=[] 
+    with open(file_name,'r') as file: 
+        csvReader=csv.reader(file) 
+        data0 = list(csvReader)
+        data1 = list([row for row in csvReader])
+        file.close()
+    return data0,data1
+
+
+
+
+def pitchmker(file_name):
+    ##---------------------------------clear the file folder---------------------------------##
+    delList = []
+    delDir = './figures'
+    delList = os.listdir(delDir )
+
+    for f in delList:
+        filePath = os.path.join( delDir, f )
+        if os.path.isfile(filePath):
+            os.remove(filePath)
+        elif os.path.isdir(filePath):
+            shutil.rmtree(filePath,True)
+    # print(O_P)
     #Create figure
     fig=plt.figure()
     ax=fig.add_subplot(1,1,1)
 
+    ##--------------------------------------pitch creadting-----------------------------------##
     #Pitch Outline & Centre Line
     plt.plot([0,0],[0,90], color="black")
     plt.plot([0,130],[90,90], color="black")
@@ -81,53 +113,69 @@ def createPitch(O_P,D_P,tex1,tex2,tex3):
     #Draw Arcs
     ax.add_patch(leftArc)
     ax.add_patch(rightArc)
+
+    ##-----------------------------------scatters and arrows-----------------------------------##
+    '''
+    data format:
+    |MatchID--0
+    |TeamID--1
+    |OriginPlayerID--2
+    |DestinationPlayerID--3
+    |MatchPeriod--4
+    |EventTime--5
+    |EventSubType--6
+    |EventOrigin_x--7
+    |EventOrigin_y--8
+    |EventDestination_x--9
+    |EventDestination_y--10
+    ''' 
+    data,data1 = pass_stats(file_name)
     
-    c1 = colorset(tex1)
-    c2 = colorset(tex2)
-    c3 = colorset(tex3)
-
-    # for i in range(O_P.shape[1]):
-    i = 2
-    ax.arrow(O_P[i:0], O_P[i:1], D_P[i:0]-O_P[i,0], D_P[i:1]-O_P[i,1],
-                 length_includes_head=True,
-                 head_width=0.25, head_length=0.5, 
-                 fc='r', ec='b',
-                 color=c1
-                 )
-    
-    plt.scatter(O_P[:,0].tolist(),O_P[:,1].tolist(),s=50,color=c2)
-    plt.scatter(D_P[:,0].tolist(),D_P[:,1].tolist(),s=50,color=c3)
-
-
-
-    #Tidy Axes
+    ax.scatter(0,-100,s=50,color='cyan',label='Opponent1')
+    ax.scatter(0,-100,s=50,color='red',label='Huskies')
+    ax.set_xlim(-5,135)
+    ax.set_ylim(-10,95)
     plt.axis('on')
-    plt.grid("on")
+    plt.grid('on')
+    ax.legend(loc='upper left',fontsize=8)
+    n = 1
+   
+    # while True:
+    for k in range(1,15):
+        plt.title('{}{}'.format('MatchID:',n))
+        for i in range(border(k-10,1),k):
+                a = 1.3*float(data[i][7])
+                b = 0.9*float(data[i][8])
+                c = 1.3*float(data[i][9])
+                d = 0.9*float(data[i][10])
+
+                c1 = colorset1(data[i][6])
+                c2 = colorset2(data[i][1])
+                # c3 = colorset2(data[i][3])
+
+                ax.arrow(a,b, c-a,d-b,
+                         length_includes_head=True,
+                         head_width=2.5, head_length=4,shape="full",
+                         fc=c1, ec=c1,overhang=0.5,alpha=0.9,
+                         # color=c1
+                         )
+                rotations = np.arctan((d-b)/(c-a))*180/np.pi
+
+                plt.text((a+c)/2,(b+d)/2,data[i][6],color=c1,fontproperties=prop,fontsize=8,rotation=rotations)
+                plt.text(a,b,i,color="black",fontproperties=prop,fontsize=8,rotation=rotations)
+                plt.text(c,d,i,color="black",fontproperties=prop,fontsize=8,rotation=rotations)
+
+                ax.scatter(a,b,s=50,color=c2)
+                ax.scatter(c,d,s=50,color=c2) 
+                plt.savefig('./figures/pass{}.png'.format(k),dpi=600, transparent = False, bbox_inches = 'tight', pad_inches = 0.)
+    #Tidy Axes
     
-
-
-
-
-
     
 
 
 if __name__ == '__main__':
-    file_name = './csvdata/passingevents0.dat'
-    data = np.loadtxt(file_name)
-    lenth1 = 4
-    A = np.zeros(shape=(lenth1,2),dtype='float')
-    B = np.zeros(shape=(lenth1,2),dtype='float')
+    file_name = 'csvdata/passingevents.csv'
+    pitchmker(file_name)
 
-    A[:,0] = data[0:lenth1,1]
-    A[:,1] = data[0:lenth1,2]
-    B[:,0] = data[0:lenth1,3]
-    B[:,1] = data[0:lenth1,4]
-    print(A)
-    print(B)
-    t1 = ''
-    t2 = ''
-    t3 = ''
-    createPitch(A,B,t1,t2,t3)
-    plt.savefig('pass.png',dpi=600, transparent = False, bbox_inches = 'tight', pad_inches = 0.25)
-    plt.show()
+    # plt.savefig('pass.png',dpi=600, transparent = False, bbox_inches = 'tight', pad_inches = 0.25)
+    # plt.show()

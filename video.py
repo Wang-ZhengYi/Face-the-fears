@@ -8,9 +8,9 @@
 
 from def_import import *
 
-fps = 60 
+fps = 1 
 save_path = './videos/saveVideo0.mp4'
-img_path='./figures0/'
+img_path='./figures/'
 frames = len(os.listdir(img_path))
 time = frames/fps
 music_start = 0
@@ -43,7 +43,7 @@ def veditor(clip_bottom,clip_top,fps,save_path):
 def vmker(fps,save_path,img_path,frames):
 	img_list=os.listdir(img_path)
 	img_list.sort()
-	img_list.sort(key = lambda x: int(x[3:-4]))
+	img_list.sort(key = lambda x: int(x[4:-4]))
 	fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 	image = Image.open(img_path + img_list[0])
 	videoWriter = cv2.VideoWriter(save_path,fourcc,fps,image.size)
