@@ -1,6 +1,8 @@
 # back-to-Mars
 a few ideas without any relationship with the Mars
 
+run `pitch.py` to creat a series of pictures which present the passing events.
+
 ### Format of the csv files:
 
 
