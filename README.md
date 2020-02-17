@@ -1,9 +1,20 @@
 # back-to-Mars
 a few ideas without any relationship with the Mars
 
-run `pitch.py` to creat a series of pictures which present the passing events.
+Statistiacal operation of soccer games events
+
+## passing events:
+
+
+
+run [pitch.py](pitch.py) to create a series of pictures which present the passing events.
+run [video.py](video.py) to create a video of passing.
+
 
 ### Format of the csv files:
+
+
+![avatar](pass.png)
 
 
 1. matches.csv
