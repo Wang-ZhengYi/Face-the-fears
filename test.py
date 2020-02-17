@@ -27,24 +27,27 @@ def pass_stats0(file_name):
         file.close()
     return data0
 
-def pass_stats1(file_name):
+def pass_stats1(file_name,nrow):
     dataSet=[] 
     with open(file_name,'r') as file: 
         csvReader=csv.reader(file) 
-        data1 = list([row[0] for row in csvReader])
+        data1 = list([row[nrow] for row in csvReader])
         file.close()
     return data1
 
-if __name__ == '__main__':
-    file_name = 'csvdata/passingevents.csv'
-    data0,data1 = pass_stats0(file_name),pass_stats1(file_name)
+def tex_count(file_name,nrow):
+    dataSet=[] 
+    with open(file_name,'r') as file: 
+        csvReader=csv.reader(file) 
+        data = list([row[nrow] for row in csvReader])
+        file.close()
+        tex_count0 = Counter(data)
+    return tex_count0
 
-    # b = []
-    # b = ['1',1,1,11,1,2,4,33,3,1,4]
-    # a = b.count(1)
-    M =1
-    a = data1.count('{}'.format(M))
-    b = data0[1]
-    # print(data[1][1])
+
+if __name__ == '__main__':
+    file_name0 = 'csvdata/fullevents.csv' 
+    file_name = 'csvdata/passingevents.csv'
+    # data0,data1 = pass_stats0(file_name),pass_stats1(file_name)
+    a = tex_count(file_name0,6)
     print(a)
-    print(b)

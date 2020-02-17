@@ -8,8 +8,8 @@
 
 from def_import import *
 
-fps = 3 
-save_path = './videos/saveVideo0.mp4'
+fps = 10 
+save_path = './videos/saveVideo01.mp4'
 img_path='./figures/'
 frames = len(os.listdir(img_path))
 time = frames/fps

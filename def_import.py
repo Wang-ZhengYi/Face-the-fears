@@ -13,5 +13,6 @@ from moviepy.editor import *
 from moviepy.audio.fx import all
 from PIL import Image
 
-import pitch
+# from pitch import all
 import math
+from collections import Counter
