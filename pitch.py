@@ -51,6 +51,8 @@ def colorset1(tex):
     else:
         return 'blue'
 
+
+
 def pass_stats0(file_name):
     dataSet=[] 
     with open(file_name,'r') as file: 
@@ -59,13 +61,29 @@ def pass_stats0(file_name):
         file.close()
     return data0
 
-def pass_stats1(file_name):
+def data_row(file_name,nrow):
+	#read csv files in row.
     dataSet=[] 
     with open(file_name,'r') as file: 
         csvReader=csv.reader(file) 
-        data1 = list([row[0] for row in csvReader])
+        data1 = list([row[nrow] for row in csvReader])
         file.close()
     return data1
+
+def holding(file_name,MatchID):
+	#holding time calculations, 0 means intercepting.
+	MatchID_list = data_row(file_name,0)
+	idid = data_row(file_name,1)
+	time0 = data_row(file_name,5)
+	N = MatchID_list.count('{}'.format(MatchID))
+
+	hold = np.zeros(N,dtype='float')
+	for i in range(1,N):
+		if idid[i] == idid[i-1]:
+			hold[i] = float(time0[i]) - float(time0[i-1])
+		else:
+			hold[i] = 0
+	return hold
 
 
 
@@ -100,10 +118,10 @@ def pitchmker(file_name,MatchID):
     |EventDestination_x--9
     |EventDestination_y--10
     ''' 
-    data,data1 = pass_stats0(file_name),pass_stats1(file_name)
+    data,data1 = pass_stats0(file_name),data_row(file_name,0)
     
-    
-    N = data1.count('{}'.format(MatchID))
+    MatchID_list = data_row(file_name,0)
+    N = MatchID_list.count('{}'.format(MatchID))
 
     print(N)
 
@@ -203,7 +221,7 @@ def pitchmker(file_name,MatchID):
 
 if __name__ == '__main__':
     file_name = 'csvdata/passingevents.csv'
-    pitchmker(file_name,1)
-
+    # pitchmker(file_name,1)
+   
     # plt.savefig('pass.png',dpi=600, transparent = False, bbox_inches = 'tight', pad_inches = 0.25)
     # plt.show()
