@@ -19,21 +19,32 @@ def colorset(tex):
     else:
         return 'blue'
 
-def readCsv(file_name):
+def pass_stats0(file_name):
     dataSet=[] 
     with open(file_name,'r') as file: 
         csvReader=csv.reader(file) 
-        a = list(csvReader)
+        data0 = list(csvReader)
         file.close()
-    return a
+    return data0
 
+def pass_stats1(file_name):
+    dataSet=[] 
+    with open(file_name,'r') as file: 
+        csvReader=csv.reader(file) 
+        data1 = list([row[0] for row in csvReader])
+        file.close()
+    return data1
 
 if __name__ == '__main__':
     file_name = 'csvdata/passingevents.csv'
-    data = readCsv(file_name)
-    MatchID = []
-    MatchID = data[0]
-    a = MatchID[5]*1.
+    data0,data1 = pass_stats0(file_name),pass_stats1(file_name)
 
+    # b = []
+    # b = ['1',1,1,11,1,2,4,33,3,1,4]
+    # a = b.count(1)
+    M =1
+    a = data1.count('{}'.format(M))
+    b = data0[1]
     # print(data[1][1])
     print(a)
+    print(b)

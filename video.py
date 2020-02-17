@@ -8,7 +8,7 @@
 
 from def_import import *
 
-fps = 1 
+fps = 3 
 save_path = './videos/saveVideo0.mp4'
 img_path='./figures/'
 frames = len(os.listdir(img_path))
