@@ -1,7 +1,7 @@
-# back-to-Mars
-a few ideas without any relationship with the Mars
+# Face-the-fears
+The best way to eliminate fear is to face it
 
-Statistiacal operation of soccer games events
+Statistiacal operation of pitch-game events
 
 ## passing events:
 
