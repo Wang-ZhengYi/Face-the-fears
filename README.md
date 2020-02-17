@@ -14,7 +14,7 @@ Statistiacal operation of soccer games events
 ### Format of the csv files:
 
 
-![avatar](pass.png)
+![avatar](./pass.png)
 
 
 1. matches.csv
