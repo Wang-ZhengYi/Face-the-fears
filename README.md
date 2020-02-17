@@ -7,8 +7,8 @@ Statistiacal operation of soccer games events
 
 
 
-run [pitch.py](pitch.py) to create a series of pictures which present the passing events.
-run [video.py](video.py) to create a video of passing.
+1. run [pitch.py](pitch.py) to create a series of pictures which present the passing events.
+2. run [video.py](video.py) to create a video of passing.
 
 
 ### Format of the csv files:
